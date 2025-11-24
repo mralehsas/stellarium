@@ -1,0 +1,14 @@
+[
+  {"name": "الحمل", "englishName": "Aries", "stars": ["HIP9884", "HIP8903", "HIP8833"], "lines": [[0,1],[1,2]]},
+  {"name": "الثور", "englishName": "Taurus", "stars": ["HIP17702", "HIP17954", "HIP18543"], "lines": [[0,1],[1,2]]},
+  {"name": "الجوزاء", "englishName": "Gemini", "stars": ["HIP31681", "HIP33018", "HIP34045"], "lines": [[0,1],[1,2]]},
+  {"name": "السرطان", "englishName": "Cancer", "stars": ["HIP43103", "HIP42806", "HIP40526"], "lines": [[0,1],[1,2]]},
+  {"name": "الأسد", "englishName": "Leo", "stars": ["HIP49669", "HIP50583", "HIP54872"], "lines": [[0,1],[1,2]]},
+  {"name": "العذراء", "englishName": "Virgo", "stars": ["HIP66249", "HIP65474", "HIP63608"], "lines": [[0,1],[1,2]]},
+  {"name": "الميزان", "englishName": "Libra", "stars": ["HIP72622", "HIP72603", "HIP73473"], "lines": [[0,1],[1,2]]},
+  {"name": "العقرب", "englishName": "Scorpius", "stars": ["HIP78401", "HIP78265", "HIP80763"], "lines": [[0,1],[1,2]]},
+  {"name": "القوس", "englishName": "Sagittarius", "stars": ["HIP89931", "HIP90185", "HIP92855"], "lines": [[0,1],[1,2]]},
+  {"name": "الجدي", "englishName": "Capricornus", "stars": ["HIP100064", "HIP100345", "HIP101769"], "lines": [[0,1],[1,2]]},
+  {"name": "الدلو", "englishName": "Aquarius", "stars": ["HIP109139", "HIP110003", "HIP111497"], "lines": [[0,1],[1,2]]},
+  {"name": "الحوت", "englishName": "Pisces", "stars": ["HIP113889", "HIP114971", "HIP116928"], "lines": [[0,1],[1,2]]}
+]
