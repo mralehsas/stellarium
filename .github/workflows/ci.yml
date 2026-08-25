@@ -1,0 +1,43 @@
+name: "CI"
+
+on:
+  pull_request:
+    branches:
+      - albaz/stellarium-26.2-ci-base
+
+jobs:
+  albaz-qt6:
+    name: "ALBAZ Qt6 scientific tests"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout ALBAZ scientific sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            plugins/ALBAZCrescent/src/core
+            plugins/ALBAZCrescent/src/test
+          sparse-checkout-cone-mode: false
+
+      - name: Install minimal Qt6 test toolchain
+        run: |
+          sudo apt update
+          sudo apt install -y qt6-base-dev qt6-base-dev-tools pkg-config g++
+
+      - name: Build ALBAZ scientific types test
+        shell: bash
+        run: |
+          set -euo pipefail
+          TEST_DIR="$GITHUB_WORKSPACE/plugins/ALBAZCrescent/src/test"
+          MOC="$(qtpaths6 --query QT_HOST_LIBEXECS)/moc"
+          "$MOC" "$TEST_DIR/testScientificTypes.hpp" -o "$RUNNER_TEMP/moc_testScientificTypes.cpp"
+          g++ -std=c++17 -O2 -Wall -Wextra -pedantic \
+            "$TEST_DIR/testScientificTypes.cpp" \
+            "$RUNNER_TEMP/moc_testScientificTypes.cpp" \
+            -I"$TEST_DIR" \
+            $(pkg-config --cflags --libs Qt6Core Qt6Test) \
+            -o "$RUNNER_TEMP/testALBAZScientificTypes"
+
+      - name: Run ALBAZ scientific types test
+        run: "$RUNNER_TEMP/testALBAZScientificTypes -txt"
