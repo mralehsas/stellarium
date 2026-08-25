@@ -53,12 +53,24 @@ The RED test contract covers:
 - J2000 reference JD
 - calendar round-trip by requested convention
 
-### GREEN — implementation present, verification pending
+### GREEN — observed and confirmed
 
-Production headers now present:
+Production headers are present:
 
 - `core/AstroAngle.hpp`
 - `core/AstroTime.hpp`
 - `core/CalendarConversion.hpp`
 
-GREEN must not be declared until the same isolated Qt6 gate builds and runs both Task 2 and Task 3 tests successfully on the production head.
+The isolated Qt6 gate passed on the production head.
+
+- Workflow run: `32842698970`
+- Job: `ALBAZ Qt6 scientific tests`
+- Task 2 build/test: success
+- Task 3 build/test: success
+- Result: `SUCCESS`
+
+Task 3 is closed GREEN.
+
+## Next cycle
+
+Task 1 integration closure — verify ALBAZ is registered as a real Qt static plugin inside Stellarium. The next RED test must inspect Qt static plugin instances rather than construct `ALBAZCrescentStelPluginInterface` manually.
