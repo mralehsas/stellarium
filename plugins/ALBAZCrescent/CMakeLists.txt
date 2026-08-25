@@ -1,0 +1,4 @@
+# ALBAZ Crescent plugin
+SET(ALBAZCRESCENT_VERSION "0.1.0")
+
+ADD_SUBDIRECTORY(src)
