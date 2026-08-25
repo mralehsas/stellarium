@@ -8,7 +8,7 @@ class TestPluginSmoke : public QObject
 	Q_OBJECT
 
 private slots:
-	void pluginMetadataIsStable();
+	void pluginIsRegisteredStatically();
 };
 
 #endif // TESTALBAZPLUGINSMOKE_HPP

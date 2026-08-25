@@ -25,8 +25,6 @@ The isolated Qt6 scientific gate passed on the production head.
 - Workflow run: `32841424360`
 - Job: `ALBAZ Qt6 scientific tests`
 - Result: `SUCCESS`
-- Build step: `Build ALBAZ scientific types test` — success
-- Test step: `Run ALBAZ scientific types test` — success
 
 Task 2 is closed GREEN.
 
@@ -34,24 +32,11 @@ Task 2 is closed GREEN.
 
 ### RED — observed and confirmed
 
-The Task 3 tests were committed before production code.
-
 - Workflow run: `32842240120`
 - Job: `ALBAZ Qt6 scientific tests`
-- Task 2 scientific-types regression: `5 passed / 0 failed`
+- Task 2 regression: `5 passed / 0 failed`
 - Task 3 build result: `FAILURE`
 - Confirmed compiler failure: `../core/AstroAngle.hpp: No such file or directory`
-- Interpretation: RED occurred for the intended reason — Task 3 scientific primitives were absent.
-
-The RED test contract covers:
-
-- robust angle normalization across 0°/360° and ±180°
-- explicit astronomical time-scale tagging (`UTC`, `TAI`, `TT`, `UT1`, `TDB`)
-- Julian versus proleptic-Gregorian leap rules
-- Gregorian reform JD continuity
-- historical regression: `19-07-622 Julian = JD 1948442.5 = 22-07-622 proleptic Gregorian`
-- J2000 reference JD
-- calendar round-trip by requested convention
 
 ### GREEN — observed and confirmed
 
@@ -61,8 +46,6 @@ Production headers are present:
 - `core/AstroTime.hpp`
 - `core/CalendarConversion.hpp`
 
-The isolated Qt6 gate passed on the production head.
-
 - Workflow run: `32842698970`
 - Job: `ALBAZ Qt6 scientific tests`
 - Task 2 build/test: success
@@ -71,6 +54,16 @@ The isolated Qt6 gate passed on the production head.
 
 Task 3 is closed GREEN.
 
-## Next cycle
+## Task 1 integration closure — Qt static plugin registration
 
-Task 1 integration closure — verify ALBAZ is registered as a real Qt static plugin inside Stellarium. The next RED test must inspect Qt static plugin instances rather than construct `ALBAZCrescentStelPluginInterface` manually.
+### RED — requested, verification pending
+
+The smoke test now checks runtime registration through `QPluginLoader::staticInstances()` and the public `StelPluginInterface` contract. It no longer constructs `ALBAZCrescentStelPluginInterface` manually.
+
+Expected RED behavior before production registration wiring exists:
+
+- `testALBAZPluginSmoke` builds successfully.
+- Runtime lookup does not find plugin id `ALBAZCrescent` in Qt static plugin instances.
+- The test fails with the message that ALBAZ must be registered through Qt static plugin import inside Stellarium.
+
+No static-import production wiring may be added until this RED state is observed and confirmed by the Stellarium integration gate.
