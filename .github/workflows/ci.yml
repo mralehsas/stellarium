@@ -41,3 +41,20 @@ jobs:
 
       - name: Run ALBAZ scientific types test
         run: "$RUNNER_TEMP/testALBAZScientificTypes -txt"
+
+      - name: Build ALBAZ time-calendar-angle test
+        shell: bash
+        run: |
+          set -euo pipefail
+          TEST_DIR="$GITHUB_WORKSPACE/plugins/ALBAZCrescent/src/test"
+          MOC="$(qtpaths6 --query QT_HOST_LIBEXECS)/moc"
+          "$MOC" "$TEST_DIR/testTimeCalendarAngles.hpp" -o "$RUNNER_TEMP/moc_testTimeCalendarAngles.cpp"
+          g++ -std=c++17 -O2 -Wall -Wextra -pedantic \
+            "$TEST_DIR/testTimeCalendarAngles.cpp" \
+            "$RUNNER_TEMP/moc_testTimeCalendarAngles.cpp" \
+            -I"$TEST_DIR" \
+            $(pkg-config --cflags --libs Qt6Core Qt6Test) \
+            -o "$RUNNER_TEMP/testALBAZTimeCalendarAngles"
+
+      - name: Run ALBAZ time-calendar-angle test
+        run: "$RUNNER_TEMP/testALBAZTimeCalendarAngles -txt"
