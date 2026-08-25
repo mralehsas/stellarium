@@ -56,14 +56,27 @@ Task 3 is closed GREEN.
 
 ## Task 1 integration closure — Qt static plugin registration
 
-### RED — requested, verification pending
+### RED — observed and confirmed
 
-The smoke test now checks runtime registration through `QPluginLoader::staticInstances()` and the public `StelPluginInterface` contract. It no longer constructs `ALBAZCrescentStelPluginInterface` manually.
+The smoke test checks runtime registration through `QPluginLoader::staticInstances()` and the public `StelPluginInterface` contract. It does not construct `ALBAZCrescentStelPluginInterface` manually.
 
-Expected RED behavior before production registration wiring exists:
+- Workflow run: `32843243543`
+- Job: `ALBAZ Stellarium static plugin integration`
+- Configure Stellarium integration build: success
+- Build `testALBAZPluginSmoke`: success
+- Runtime test: `FAILURE`
+- Confirmed condition: `albaz != nullptr` returned false
+- Confirmed message: `ALBAZCrescent must be registered through Qt static plugin import inside Stellarium`
+- Test totals: `2 passed / 1 failed`
 
-- `testALBAZPluginSmoke` builds successfully.
-- Runtime lookup does not find plugin id `ALBAZCrescent` in Qt static plugin instances.
-- The test fails with the message that ALBAZ must be registered through Qt static plugin import inside Stellarium.
+Interpretation: build and link were valid; ALBAZ was absent from Qt's static plugin instances at runtime. This is the intended RED state.
 
-No static-import production wiring may be added until this RED state is observed and confirmed by the Stellarium integration gate.
+### GREEN — implementation present, verification pending
+
+Production registration wiring is now present:
+
+- `ALBAZCrescentStaticImport.cpp` imports `ALBAZCrescentStelPluginInterface` with `Q_IMPORT_PLUGIN`.
+- The importer is compiled into `stelMain` so the registration reference is retained by the host.
+- `stelMain` links `ALBAZCrescent-static` so the imported plugin metadata and factory resolve from the static archive.
+
+GREEN must not be declared until the Stellarium integration gate builds and the runtime smoke test finds plugin id `ALBAZCrescent` in `QPluginLoader::staticInstances()` while the scientific regression job remains GREEN.

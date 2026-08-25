@@ -18,6 +18,11 @@ SET_TARGET_PROPERTIES(ALBAZCrescent-static PROPERTIES COMPILE_FLAGS "-DQT_STATIC
 ADD_DEPENDENCIES(AllStaticPlugins ALBAZCrescent-static)
 SET_TARGET_PROPERTIES(ALBAZCrescent-static PROPERTIES FOLDER "plugins/ALBAZCrescent")
 
+# Import ALBAZ from a host translation unit so Qt keeps and registers the
+# static plugin even though Stellarium's src target is configured first.
+TARGET_SOURCES(stelMain PRIVATE ALBAZCrescentStaticImport.cpp)
+TARGET_LINK_LIBRARIES(stelMain PUBLIC ALBAZCrescent-static)
+
 IF(ENABLE_TESTING)
      ADD_SUBDIRECTORY(test)
 ENDIF()
