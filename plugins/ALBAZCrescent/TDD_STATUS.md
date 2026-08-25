@@ -32,9 +32,18 @@ Task 2 is closed GREEN.
 
 ## Task 3 — Time, calendar, and angle primitives
 
-### RED — requested, verification pending
+### RED — observed and confirmed
 
-Tests are committed before production code for:
+The Task 3 tests were committed before production code.
+
+- Workflow run: `32842240120`
+- Job: `ALBAZ Qt6 scientific tests`
+- Task 2 scientific-types regression: `5 passed / 0 failed`
+- Task 3 build result: `FAILURE`
+- Confirmed compiler failure: `../core/AstroAngle.hpp: No such file or directory`
+- Interpretation: RED occurred for the intended reason — Task 3 scientific primitives were absent.
+
+The RED test contract covers:
 
 - robust angle normalization across 0°/360° and ±180°
 - explicit astronomical time-scale tagging (`UTC`, `TAI`, `TT`, `UT1`, `TDB`)
@@ -44,10 +53,12 @@ Tests are committed before production code for:
 - J2000 reference JD
 - calendar round-trip by requested convention
 
-Expected RED cause: Task 3 production headers do not yet exist:
+### GREEN — implementation present, verification pending
+
+Production headers now present:
 
 - `core/AstroAngle.hpp`
 - `core/AstroTime.hpp`
 - `core/CalendarConversion.hpp`
 
-No Task 3 production implementation may be added until the Qt6 gate records this RED state and the failure is confirmed to originate from these missing scientific primitives.
+GREEN must not be declared until the same isolated Qt6 gate builds and runs both Task 2 and Task 3 tests successfully on the production head.
