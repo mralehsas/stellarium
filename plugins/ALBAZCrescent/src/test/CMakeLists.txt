@@ -14,3 +14,16 @@ TARGET_LINK_LIBRARIES(testALBAZPluginSmoke
 )
 ADD_TEST(testALBAZPluginSmoke testALBAZPluginSmoke)
 SET_TARGET_PROPERTIES(testALBAZPluginSmoke PROPERTIES FOLDER "plugins/ALBAZCrescent/src/test")
+
+ADD_EXECUTABLE(testALBAZScientificTypes
+     testScientificTypes.hpp
+     testScientificTypes.cpp
+)
+TARGET_LINK_LIBRARIES(testALBAZScientificTypes
+     Qt${QT_VERSION_MAJOR}::Test
+     Qt${QT_VERSION_MAJOR}::Core
+     ALBAZCrescent-static
+     stelMain
+)
+ADD_TEST(testALBAZScientificTypes testALBAZScientificTypes)
+SET_TARGET_PROPERTIES(testALBAZScientificTypes PROPERTIES FOLDER "plugins/ALBAZCrescent/src/test")
