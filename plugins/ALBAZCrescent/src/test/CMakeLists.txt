@@ -29,3 +29,15 @@ TARGET_LINK_LIBRARIES(testALBAZScientificTypes
 )
 ADD_TEST(testALBAZScientificTypes testALBAZScientificTypes)
 SET_TARGET_PROPERTIES(testALBAZScientificTypes PROPERTIES FOLDER "plugins/ALBAZCrescent/src/test")
+
+# Time/calendar/angle primitives are also host-independent scientific code.
+ADD_EXECUTABLE(testALBAZTimeCalendarAngles
+     testTimeCalendarAngles.hpp
+     testTimeCalendarAngles.cpp
+)
+TARGET_LINK_LIBRARIES(testALBAZTimeCalendarAngles
+     Qt${QT_VERSION_MAJOR}::Test
+     Qt${QT_VERSION_MAJOR}::Core
+)
+ADD_TEST(testALBAZTimeCalendarAngles testALBAZTimeCalendarAngles)
+SET_TARGET_PROPERTIES(testALBAZTimeCalendarAngles PROPERTIES FOLDER "plugins/ALBAZCrescent/src/test")
